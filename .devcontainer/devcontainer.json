@@ -5,16 +5,42 @@
   },
   "features": {},
   "remoteUser": "vscode",
+  
+  // Montar Docker socket do host para usar docker/docker-compose
+  "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ],
+  
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "fish"
+        "terminal.integrated.defaultProfile.linux": "fish",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[csharp]": {
+          "editor.defaultFormatter": "ms-dotnettools.csdevkit"
+        }
       },
       "extensions": [
+        // C# / .NET
         "ms-dotnettools.csharp",
-        "ms-azuretools.vscode-docker"
+        "ms-dotnettools.csdevkit",
+        
+        // Docker
+        "ms-azuretools.vscode-docker",
+        
+        // Frontend
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        
+        // Utilities
+        "eamodio.gitlens",
+        "humao.rest-client",
+        "yzhang.markdown-all-in-one"
       ]
     }
   },
-  "postCreateCommand": "dotnet --info"
+  
+  "postCreateCommand": "dotnet --info && node --version && pnpm --version"
 }
