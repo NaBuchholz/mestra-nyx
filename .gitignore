@@ -3,6 +3,8 @@
 # =========================
 .DS_Store
 Thumbs.db
+**/obj/
+**/bin/
 
 # =========================
 # IDEs
@@ -33,3 +35,14 @@ docker-compose.override.yml
 # Git
 # =========================
 *.orig
+
+# =========================
+# Build
+# =========================
+dist/
+build/
+node_modules/
+**/dist/
+**/build/
+**/node_modules/
+
