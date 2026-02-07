@@ -1,0 +1,20 @@
+{
+  "name": "Mestra Nyx Dev",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {},
+  "remoteUser": "vscode",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "fish"
+      },
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "postCreateCommand": "dotnet --info"
+}
