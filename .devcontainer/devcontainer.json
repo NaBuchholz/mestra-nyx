@@ -5,12 +5,17 @@
   },
   "features": {},
   "remoteUser": "vscode",
-  
+
   // Montar Docker socket do host para usar docker/docker-compose
   "mounts": [
-    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly,type=bind"
   ],
-  
+
+  "remoteEnv": {
+    "SSH_AUTH_SOCK": "/tmp/ssh-agent.sock"
+  },
+
   "customizations": {
     "vscode": {
       "settings": {
@@ -25,15 +30,15 @@
         // C# / .NET
         "ms-dotnettools.csharp",
         "ms-dotnettools.csdevkit",
-        
+
         // Docker
         "ms-azuretools.vscode-docker",
-        
+
         // Frontend
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
-        
+
         // Utilities
         "eamodio.gitlens",
         "humao.rest-client",
@@ -41,6 +46,6 @@
       ]
     }
   },
-  
+
   "postCreateCommand": "dotnet --info && node --version && pnpm --version"
 }
