@@ -6,6 +6,8 @@
   "features": {},
   "remoteUser": "vscode",
 
+  "runArgs": ["--add-host=host.docker.internal:host-gateway"],
+
   // Montar Docker socket do host para usar docker/docker-compose
   "mounts": [
     "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
@@ -13,7 +15,9 @@
   ],
 
   "remoteEnv": {
-    "SSH_AUTH_SOCK": "/tmp/ssh-agent.sock"
+    "SSH_AUTH_SOCK": "/tmp/ssh-agent.sock",
+    "DATABASE_HOST": "host.docker.internal",
+    "REDIS_HOST": "host.docker.internal"
   },
 
   "customizations": {

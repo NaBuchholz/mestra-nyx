@@ -46,6 +46,11 @@ RUN apt-get update \
     && apt-get install -y postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
+# Redis client (útil para debug)
+RUN apt-get update \
+    && apt-get install -y redis-tools \
+    && rm -rf /var/lib/apt/lists/*
+
 # GitHub CLI (gh)
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
       | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
