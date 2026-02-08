@@ -46,3 +46,7 @@ node_modules/
 **/build/
 **/node_modules/
 
+# pnpm
+.pnpm-store/
+pnpm-lock.yaml
+
