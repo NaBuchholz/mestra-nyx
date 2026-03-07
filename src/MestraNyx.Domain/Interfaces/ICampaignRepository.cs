@@ -5,10 +5,10 @@ public interface ICampaignRepository
 {
     Task<Campaign?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
-    Task<List<Campaign>> GetAllByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<Campaign>> GetAllByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken = default);
 
-    Task<List<Campaign?>> GetPublicCampaignsAsync(int skip, int take, CancellationToken cancellationToken = default);
-    Task<Campaign?> AddAsync(Campaign campaign, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<Campaign>> GetPublicCampaignsAsync(int skip, int take, CancellationToken cancellationToken = default);
+    Task<Campaign> AddAsync(Campaign campaign, CancellationToken cancellationToken = default);
 
     Task UpdateAsync(Campaign campaign, CancellationToken cancellationToken = default);
 
