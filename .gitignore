@@ -50,3 +50,7 @@ node_modules/
 .pnpm-store/
 pnpm-lock.yaml
 
+# env
+.env
+.env.*
+!.env.example
