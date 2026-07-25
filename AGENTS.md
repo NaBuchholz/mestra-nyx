@@ -179,6 +179,14 @@ O agente deve considerar limitações reais:
 - Não executar comandos destrutivos sem autorização explícita.
 - Não criar commits, fazer push ou publicar serviços sem solicitação direta.
 
+## Continuidade e backlog
+
+- O GitHub Project [Mestra Nyx](https://github.com/users/NaBuchholz/projects/8) é a fonte oficial do backlog e do estado das tarefas.
+- No início de uma nova sessão, consultar os itens com status `In progress` antes de propor a próxima etapa.
+- Usar GitHub Issues para contexto, critérios de aceite, impacto arquitetural, segurança, testes e documentação.
+- Não manter uma lista `TASKS.md` paralela, para evitar divergência entre fontes.
+- Alterações no GitHub Project, Issues ou outros recursos externos continuam exigindo autorização explícita.
+
 ## Definição de pronto
 
 Uma etapa só deve ser considerada concluída quando:
