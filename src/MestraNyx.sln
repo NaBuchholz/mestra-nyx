@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MestraNyx.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MestraNyx.API", "MestraNyx.API\MestraNyx.API.csproj", "{5CD99B64-A7D8-4139-BBA2-0CFD4D791D76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MestraNyx.Application.UnitTests", "..\tests\MestraNyx.Application.UnitTests\MestraNyx.Application.UnitTests.csproj", "{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{5CD99B64-A7D8-4139-BBA2-0CFD4D791D76}.Release|x64.Build.0 = Release|Any CPU
 		{5CD99B64-A7D8-4139-BBA2-0CFD4D791D76}.Release|x86.ActiveCfg = Release|Any CPU
 		{5CD99B64-A7D8-4139-BBA2-0CFD4D791D76}.Release|x86.Build.0 = Release|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Debug|x64.Build.0 = Debug|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Debug|x86.Build.0 = Debug|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Release|x64.ActiveCfg = Release|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Release|x64.Build.0 = Release|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Release|x86.ActiveCfg = Release|Any CPU
+		{7F1BBD5D-113E-4E27-BFA3-03CA12471DAB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
