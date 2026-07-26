@@ -1,5 +1,6 @@
 using FluentValidation;
 using MestraNyx.Application.Campaigns.Commands.CreateCampaigns;
+using MestraNyx.Application.Common.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MestraNyx.Application;
@@ -17,8 +18,12 @@ public static class DependencyInjection
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         services.AddMediatR(configuration =>
+        {
             configuration.RegisterServicesFromAssembly(
-                typeof(DependencyInjection).Assembly));
+                typeof(DependencyInjection).Assembly);
+
+            configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
+        });
 
         services.AddScoped<
             IValidator<CreateCampaignCommand>,
