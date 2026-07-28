@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace MestraNyx.Application.Campaigns.Commands.CreateCampaigns;
+namespace MestraNyx.Application.Campaigns.Commands.CreateCampaign;
 
 public sealed class CreateCampaignValidator : AbstractValidator<CreateCampaignCommand>
 {

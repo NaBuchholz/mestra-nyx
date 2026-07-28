@@ -1,5 +1,5 @@
 using FluentValidation;
-using MestraNyx.Application.Campaigns.Commands.CreateCampaigns;
+using MestraNyx.Application.Campaigns.Commands.CreateCampaign;
 using MestraNyx.Application.Common.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
 
