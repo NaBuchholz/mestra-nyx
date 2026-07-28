@@ -38,12 +38,12 @@ public sealed class ValidationBehavior<TRequest, TResponse>
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        var validationTasks = _validators.Select(v => v.ValidateAsync(request, cancellationToken));
-
-        var validationResults = await Task.WhenAll(validationTasks);
-
-        var failures = validationResults.SelectMany(r => r.Errors).ToList();
-
+        var failures = new List<FluentValidation.Results.ValidationFailure>();
+        foreach (var validator in _validators)
+        {
+            var result = await validator.ValidateAsync(request, cancellationToken);
+            failures.AddRange(result.Errors);
+        }
         if (failures.Any())
             throw new ValidationException(failures);
 
