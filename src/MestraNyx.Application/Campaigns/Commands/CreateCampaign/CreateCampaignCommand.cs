@@ -1,7 +1,7 @@
 using MediatR;
 using MestraNyx.Application.Campaigns.DTOs;
 
-namespace MestraNyx.Application.Campaigns.Commands.CreateCampaigns;
+namespace MestraNyx.Application.Campaigns.Commands.CreateCampaign;
 
 public sealed record CreateCampaignCommand(
     string Name,

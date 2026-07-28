@@ -3,7 +3,7 @@ using MestraNyx.Application.Campaigns.DTOs;
 using MestraNyx.Domain.Entities;
 using MestraNyx.Domain.Interfaces;
 
-namespace MestraNyx.Application.Campaigns.Commands.CreateCampaigns;
+namespace MestraNyx.Application.Campaigns.Commands.CreateCampaign;
 
 public sealed class CreateCampaignHandler : IRequestHandler<CreateCampaignCommand, CampaignDto>
 {
