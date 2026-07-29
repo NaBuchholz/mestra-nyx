@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 if (string.IsNullOrWhiteSpace(connectionString))
 {
     throw new InvalidOperationException(
-        "Connection string 'DefaultConnection' was not found.");
+        "Connection string 'DefaultConnection' is missing or blank.");
 }
 
 builder.Services.AddApplication();
