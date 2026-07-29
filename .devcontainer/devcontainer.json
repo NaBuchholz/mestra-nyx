@@ -14,7 +14,8 @@
   // Montar Docker socket do host para usar docker/docker-compose
   "mounts": [
     "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly,type=bind"
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly,type=bind",
+    "source=mestra-nyx-usersecrets,target=/home/vscode/.microsoft/usersecrets,type=volume"
   ],
 
   "remoteEnv": {
@@ -34,22 +35,16 @@
         }
       },
       "extensions": [
-        // C# / .NET
         "ms-dotnettools.csharp",
         "ms-dotnettools.csdevkit",
-
-        // Docker
         "ms-azuretools.vscode-docker",
-
-        // Frontend
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "bradlc.vscode-tailwindcss",
-
-        // Utilities
         "eamodio.gitlens",
         "humao.rest-client",
-        "yzhang.markdown-all-in-one"
+        "yzhang.markdown-all-in-one",
+        "streetsidesoftware.code-spell-checker"
       ]
     }
   },
