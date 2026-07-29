@@ -6,7 +6,10 @@
   "features": {},
   "remoteUser": "vscode",
 
-  "runArgs": ["--add-host=host.docker.internal:host-gateway"],
+  "runArgs": [
+    "--add-host=host.docker.internal:host-gateway",
+    "--security-opt=seccomp=unconfined"
+  ],
 
   // Montar Docker socket do host para usar docker/docker-compose
   "mounts": [
