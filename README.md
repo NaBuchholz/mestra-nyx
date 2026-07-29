@@ -105,6 +105,72 @@ sudo chown -R vscode:vscode /home/vscode/.microsoft/usersecrets
 O volume preserva os User Secrets entre rebuilds do Dev Container. Ele não
 substitui um gerenciador de segredos de produção.
 
+## Migrations do banco de dados
+
+As migrations do Entity Framework Core versionam a evolução do schema do banco.
+Os arquivos gerados ficam em
+`src/MestraNyx.Infrastructure/Persistence/Migrations` e devem ser revisados
+antes de serem aplicados ou versionados.
+
+O projeto usa uma ferramenta local para manter a versão do `dotnet-ef`
+reproduzível. Após clonar o repositório ou reconstruir o Dev Container, restaure
+as ferramentas declaradas no manifest:
+
+```fish
+dotnet tool restore
+```
+
+### Gerar uma migration
+
+Depois de alterar o modelo ou seu mapeamento, gere uma migration com um nome que
+descreva a mudança:
+
+```fish
+dotnet ef migrations add <MigrationName> \
+  --project src/MestraNyx.Infrastructure/MestraNyx.Infrastructure.csproj \
+  --startup-project src/MestraNyx.API/MestraNyx.API.csproj \
+  --context ApplicationDbContext \
+  --output-dir Persistence/Migrations
+```
+
+O projeto Infrastructure é o destino porque contém o `ApplicationDbContext` e
+as migrations. A API é o startup project porque fornece a composição e a
+configuração necessárias para o EF criar o contexto em design time.
+
+Antes de aplicar uma migration, revise seus métodos `Up` e `Down`, o model
+snapshot, os tipos das colunas, a nulabilidade, os limites, as chaves e os
+índices gerados.
+
+### Aplicar migrations pendentes
+
+Com o PostgreSQL saudável e `DefaultConnection` configurada por User Secrets,
+execute:
+
+```fish
+dotnet ef database update \
+  --project src/MestraNyx.Infrastructure/MestraNyx.Infrastructure.csproj \
+  --startup-project src/MestraNyx.API/MestraNyx.API.csproj \
+  --context ApplicationDbContext
+```
+
+O EF registra as migrations aplicadas na tabela `__EFMigrationsHistory`.
+
+### Rollback local
+
+Para retornar o banco ao estado anterior à primeira migration:
+
+```fish
+dotnet ef database update 0 \
+  --project src/MestraNyx.Infrastructure/MestraNyx.Infrastructure.csproj \
+  --startup-project src/MestraNyx.API/MestraNyx.API.csproj \
+  --context ApplicationDbContext
+```
+
+> **Atenção:** esse rollback executa o método `Down` da migration inicial,
+> remove a tabela `campaigns` e apaga todos os dados armazenados nela. Não
+> execute o comando em um banco compartilhado ou de produção sem backup,
+> validação e um plano de recuperação.
+
 ## Segurança de configuração
 
 - Não versione `.env`, connection strings, senhas ou arquivos de User Secrets.
