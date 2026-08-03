@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using MediatR;
 using MestraNyx.Application.Campaigns.Commands.CreateCampaign;
@@ -20,7 +21,7 @@ internal static class CreateCampaignEndpoint
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var subjectClaim = user.FindFirst("sub")?.Value;
+        var subjectClaim = user.FindFirst(JwtRegisteredClaimNames.Sub)?.Value;
 
         if (!Guid.TryParse(subjectClaim, out var ownerId))
         {
