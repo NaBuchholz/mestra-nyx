@@ -1,5 +1,7 @@
 using MestraNyx.Application;
 using MestraNyx.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MestraNyx.API.Features.Campaigns.CreateCampaign;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,11 +13,29 @@ if (string.IsNullOrWhiteSpace(connectionString))
         "Connection string 'DefaultConnection' is missing or blank.");
 }
 
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(connectionString);
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(connectionString);
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.MapInboundClaims = false;
+    });
+
+builder.Services
+    .AddAuthorization();
 
 var app = builder.Build();
 
-app.MapGet("/test", () => "Hello, World!");
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapCreateCampaignEndpoint();
 
 app.Run();
+
+public partial class Program
+{
+}
