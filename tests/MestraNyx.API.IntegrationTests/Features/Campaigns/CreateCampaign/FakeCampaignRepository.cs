@@ -1,7 +1,7 @@
 using MestraNyx.Domain.Entities;
 using MestraNyx.Domain.Interfaces;
 
-namespace MestraNyx.API.IntegrationTests;
+namespace MestraNyx.API.IntegrationTests.Features.Campaigns.CreateCampaign;
 
 internal sealed class FakeCampaignRepository : ICampaignRepository
 {
@@ -10,6 +10,11 @@ internal sealed class FakeCampaignRepository : ICampaignRepository
     {
         AddedCampaign = campaign;
         return Task.FromResult(campaign);
+    }
+
+    internal void Reset()
+    {
+        AddedCampaign = null;
     }
 
     public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
