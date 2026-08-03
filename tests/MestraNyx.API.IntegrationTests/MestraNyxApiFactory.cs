@@ -1,4 +1,5 @@
 using System.Text;
+using MestraNyx.API.IntegrationTests.Features.Campaigns.CreateCampaign;
 using MestraNyx.Domain.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
