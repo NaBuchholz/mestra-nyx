@@ -69,9 +69,38 @@ set -e MESTRA_NYX_CONNECTION_STRING
 Não execute `dotnet user-secrets list` em logs, issues ou outros locais
 compartilhados, pois o comando exibe o valor configurado.
 
-### 3. Iniciar a API
+### 3. Gerar um JWT de desenvolvimento
 
-Com o PostgreSQL saudável e o User Secret configurado, execute:
+A API valida access tokens JWT, mas não armazena senhas nem fornece uma rota de
+login. Em desenvolvimento local, use `dotnet user-jwts` para gerar um token
+assinado pela chave mantida em .NET User Secrets.
+
+Em um terminal Fish que será usado para fazer as chamadas HTTP, execute:
+
+```fish
+set MESTRA_NYX_TOKEN (
+    dotnet user-jwts create \
+        --project src/MestraNyx.API/MestraNyx.API.csproj \
+        --name "11111111-1111-1111-1111-111111111111" \
+        --audience "mestra-nyx-api" \
+        --valid-for 4h \
+        --output token
+)
+```
+
+O valor de `--name` é emitido como claim `sub` e precisa ser um `Guid` válido,
+pois a API usa esse identificador como proprietário da campanha. Não acrescente
+`--claim sub=...`: isso criaria claims `sub` duplicados e poderia fazer o token
+ser rejeitado com `401 Unauthorized`.
+
+O token fica apenas na variável da sessão atual e deve ser gerado novamente
+quando expirar ou quando a sessão do terminal terminar. Não copie tokens para o
+repositório, arquivos `.env`, logs, issues ou documentação.
+
+### 4. Iniciar a API
+
+Com o PostgreSQL saudável, a connection string configurada e a chave do
+`user-jwts` criada, execute em outro terminal:
 
 ```fish
 dotnet run --project src/MestraNyx.API/MestraNyx.API.csproj
@@ -82,6 +111,42 @@ O profile HTTP de desenvolvimento inicia a API em:
 ```text
 http://localhost:5063
 ```
+
+### 5. Criar uma campanha autenticada
+
+No terminal que contém `MESTRA_NYX_TOKEN`, envie a requisição:
+
+```fish
+curl --include \
+    --request POST \
+    http://localhost:5063/api/campaigns \
+    --header "Authorization: Bearer $MESTRA_NYX_TOKEN" \
+    --header "Content-Type: application/json" \
+    --data '{
+        "name": "Curse of Strahd",
+        "system": "D&D 5e",
+        "description": "A gothic horror campaign",
+        "timePeriod": "735 BC"
+    }'
+```
+
+Uma criação válida retorna `201 Created`. Sem o header `Authorization`, a mesma
+rota retorna `401 Unauthorized`.
+
+O contrato HTTP não aceita `OwnerId`. Depois de validar assinatura, issuer,
+audience e expiração do token, a API lê o claim `sub` e usa esse `Guid` como
+proprietário. Assim, um cliente não consegue criar uma campanha em nome de
+outro usuário enviando um identificador diferente no corpo.
+
+Depois dos testes manuais, remova o token da sessão:
+
+```fish
+set -e MESTRA_NYX_TOKEN
+```
+
+O fluxo de autenticação, seus limites e a evolução planejada para um provedor
+OAuth 2.0/OpenID Connect estão documentados no
+[ADR 0002](docs/architecture/adr/0002-validate-jwt-access-tokens-at-api-boundary.md).
 
 ### Troubleshooting do volume de User Secrets
 
