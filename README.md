@@ -2,6 +2,10 @@
 
 Mestra Nyx é uma aplicação para gerenciamento e publicação de conteúdo de RPG.
 
+## Documentação da API
+
+- [Campaigns API](docs/api/campaigns.md)
+
 ## Execução local da API
 
 ### Pré-requisitos

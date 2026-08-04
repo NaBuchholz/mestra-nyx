@@ -1,1 +1,68 @@
 @MestraNyx.API_HostAddress = http://localhost:5063
+
+### Create a campaign without authentication — should return 401 Unauthorized
+POST {{MestraNyx.API_HostAddress}}/api/campaigns
+Content-Type: application/json
+
+{
+  "name": "Curse of Strahd",
+  "system": "D&D 5e",
+  "description": "A campaign",
+  "timePeriod": "987 BC"
+}
+
+### Create a campaign with a malformed token — should return 401 Unauthorized
+POST {{MestraNyx.API_HostAddress}}/api/campaigns
+Authorization: Bearer invalid-development-token
+Content-Type: application/json
+
+{
+  "name": "Curse of Strahd",
+  "system": "D&D 5e",
+  "description": "A gothic horror campaign",
+  "timePeriod": "735 BC"
+}
+
+### Create a campaign with authentication — should return 201 Created
+# The prompt variable is named "password" so REST Client masks the JWT value.
+# @prompt password Paste the temporary development JWT
+POST {{MestraNyx.API_HostAddress}}/api/campaigns
+Authorization: Bearer {{password}}
+Content-Type: application/json
+
+{
+  "name": "Curse of Strahd",
+  "system": "D&D 5e",
+  "description": "A gothic horror campaign",
+  "timePeriod": "735 BC"
+}
+
+### Try to override campaign ownership — should use the authenticated subject
+# Generate the JWT with subject 11111111-1111-1111-1111-111111111111.
+# The response ownerId should differ from the value supplied in the request body.
+# @prompt password Paste the temporary development JWT
+POST {{MestraNyx.API_HostAddress}}/api/campaigns
+Authorization: Bearer {{password}}
+Content-Type: application/json
+
+{
+  "name": "Curse of Strahd",
+  "system": "D&D 5e",
+  "description": "A gothic horror campaign",
+  "timePeriod": "735 BC",
+  "ownerId": "22222222-2222-2222-2222-222222222222"
+}
+
+### Create an invalid campaign — should return 400 Bad Request
+# The prompt variable is named "password" so REST Client masks the JWT value.
+# @prompt password Paste the temporary development JWT
+POST {{MestraNyx.API_HostAddress}}/api/campaigns
+Authorization: Bearer {{password}}
+Content-Type: application/json
+
+{
+  "name": "",
+  "system": "D&D 5e",
+  "description": "A gothic horror campaign",
+  "timePeriod": "735 BC"
+}

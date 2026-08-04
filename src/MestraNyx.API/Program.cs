@@ -2,6 +2,7 @@ using MestraNyx.Application;
 using MestraNyx.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MestraNyx.API.Features.Campaigns.CreateCampaign;
+using MestraNyx.API.ExceptionHandlers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +28,15 @@ builder.Services
 builder.Services
     .AddAuthorization();
 
+builder.Services
+    .AddProblemDetails();
+
+builder.Services
+    .AddExceptionHandler<ValidationExceptionHandler>();
+
 var app = builder.Build();
 
+app.UseExceptionHandler();
 app.UseAuthentication();
 app.UseAuthorization();
 
